@@ -33,9 +33,13 @@ const MenuConceptos = () => {
           </NavLink>
         </li>
         <li>
-          <span>Parametros:</span>
+          <span>Parametros: </span>
           <Link to="/usuario/jonmircha">jonmircha</Link>
           <Link to="/usuario/kenai">kEnAi</Link>
+        </li>
+        <li>
+          <span>Parametros de consulta: </span>
+          <Link to="/productos">Productos</Link>
         </li>
       </ol>
     </nav>
