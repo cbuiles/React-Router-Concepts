@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import Acerca from "../pages/Acerca";
 import Contacto from "../pages/Contacto";
 import Error404 from "../pages/Error404";
@@ -60,6 +65,12 @@ const ConceptosBasicos = () => {
           <Route exact path="/contacto" component={Contacto} />
           <Route exact path="/usuario/:username" component={Usuario} />
           <Route exact path="/productos" component={Productos} />
+          <Route exact path="/about">
+            <Redirect to="/acerca" />
+          </Route>
+          <Route exact path="/contact">
+            <Redirect to="/contacto" />
+          </Route>
           <Route path="*" component={Error404} />
           <Usuario />
         </Switch>
