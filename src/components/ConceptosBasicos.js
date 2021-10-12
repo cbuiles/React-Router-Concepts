@@ -9,6 +9,7 @@ import Contacto from "../pages/Contacto";
 import Error404 from "../pages/Error404";
 import Home from "../pages/Home";
 import Productos from "../pages/Productos";
+import ReactTopics from "../pages/ReactTopics";
 import Usuario from "../pages/Usuario";
 import MenuConceptos from "./MenuConceptos";
 
@@ -71,6 +72,8 @@ const ConceptosBasicos = () => {
           <Route exact path="/contact">
             <Redirect to="/contacto" />
           </Route>
+          {/* Cuadno se trabaja con una ruta que genera subrrutas debe omitirse el exact ya que se van a tomar variables dinamicamente */}
+          <Route path="/react" component={ReactTopics} />
           <Route path="*" component={Error404} />
           <Usuario />
         </Switch>
