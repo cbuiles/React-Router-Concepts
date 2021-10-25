@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router";
 
 // Condiciones iniciales dinstanciarse fuera del componente
 const initialForm = {
@@ -9,6 +10,8 @@ const initialForm = {
 
 const CrudForm = ({ createData, updateData, dataToEdit, setDataToEdit }) => {
   const [form, setForm] = useState(initialForm);
+  // Vamos a crear el Hook History para redirigir el formulario cuando este sea enviado
+  let history = useHistory();
 
   useEffect(() => {
     if (dataToEdit) {
@@ -43,6 +46,8 @@ const CrudForm = ({ createData, updateData, dataToEdit, setDataToEdit }) => {
   const handleReset = (e) => {
     setForm(initialForm);
     setDataToEdit(null);
+    // Redirigir al home
+    history.push("/");
   };
 
   return (
