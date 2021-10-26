@@ -3,6 +3,8 @@ import Loader from "./Loader";
 import SongDetails from "./SongDetails";
 import SongForm from "./SongForm";
 import { helpHttp } from "../helpers/helpHttp.js";
+import { HashRouter, Link, Switch, Route } from "react-router-dom";
+import Error404 from "../pages/Error404";
 
 const SongSearch = () => {
   const [search, setSearch] = useState(null);
@@ -43,15 +45,29 @@ const SongSearch = () => {
 
   return (
     <div>
-      <h2>Song Search</h2>
-      <article className="grid-1-3">
+      <HashRouter basename="canciones">
+        <header>
+          <h2>Song Search</h2>
+          <Link to="/">Home</Link>
+        </header>
         {loading && <Loader />}
-        <SongForm handleSearch={handleSearch} />
-        {/* En caso de que la consulta de Search tenga algo y el loading ya no este cargando renderiza los detalles de las canciones */}
-        {search && !loading && (
-          <SongDetails search={search} lyric={lyric} bio={bio} />
-        )}
-      </article>
+        <article className="grid-1-3">
+          <Switch>
+            <Route exact path="/">
+              <SongForm handleSearch={handleSearch} />
+              <h2>Tabla de Canciones</h2>
+              {/* En caso de que la consulta de Search tenga algo y el loading ya no este cargando renderiza los detalles de las canciones */}
+              {search && !loading && (
+                <SongDetails search={search} lyric={lyric} bio={bio} />
+              )}
+            </Route>
+            <Route exact path="/canciones/:id">
+              <h2>Página de Canción</h2>
+            </Route>
+            <Route path="*" children={<Error404 />} />
+          </Switch>
+        </article>
+      </HashRouter>
     </div>
   );
 };
