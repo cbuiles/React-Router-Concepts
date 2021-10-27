@@ -6,11 +6,14 @@ import { helpHttp } from "../helpers/helpHttp.js";
 import { HashRouter, Link, Switch, Route } from "react-router-dom";
 import Error404 from "../pages/Error404";
 
+let mySongsInit = JSON.parse(localStorage.getItem("mySong")) || [];
+
 const SongSearch = () => {
   const [search, setSearch] = useState(null);
   const [lyric, setLyric] = useState(null);
   const [bio, setBio] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [mySongs, setMySongs] = useState(mySongsInit);
 
   useEffect(() => {
     if (search === null) return;
@@ -36,12 +39,19 @@ const SongSearch = () => {
     };
 
     fetchData();
-  }, [search]);
+
+    localStorage.setItem("mySongs", JSON.stringify(mySongs));
+  }, [search, mySongs]);
 
   const handleSearch = (data) => {
     // console.log(data);
     setSearch(data);
   };
+
+  const handleSaveSong = () => {
+    alert("Salvando canción en Favoritos");
+  };
+  const handleDeleteSong = (id) => {};
 
   return (
     <div>
@@ -54,7 +64,10 @@ const SongSearch = () => {
         <article className="grid-1-3">
           <Switch>
             <Route exact path="/">
-              <SongForm handleSearch={handleSearch} />
+              <SongForm
+                handleSearch={handleSearch}
+                handleSaveSong={handleSaveSong}
+              />
               <h2>Tabla de Canciones</h2>
               {/* En caso de que la consulta de Search tenga algo y el loading ya no este cargando renderiza los detalles de las canciones */}
               {search && !loading && (
