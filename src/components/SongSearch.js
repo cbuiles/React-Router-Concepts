@@ -5,6 +5,7 @@ import SongForm from "./SongForm";
 import { helpHttp } from "../helpers/helpHttp.js";
 import { HashRouter, Link, Switch, Route } from "react-router-dom";
 import Error404 from "../pages/Error404";
+import SongTable from "./SongTable";
 
 let mySongsInit = JSON.parse(localStorage.getItem("mySong")) || [];
 
@@ -51,7 +52,9 @@ const SongSearch = () => {
   const handleSaveSong = () => {
     alert("Salvando canción en Favoritos");
   };
-  const handleDeleteSong = (id) => {};
+  const handleDeleteSong = (id) => {
+    alert(`Eliminando cancion con el id: ${id}`);
+  };
 
   return (
     <div>
@@ -61,14 +64,17 @@ const SongSearch = () => {
           <Link to="/">Home</Link>
         </header>
         {loading && <Loader />}
-        <article className="grid-1-3">
+        <article className="grid-1-2">
           <Switch>
             <Route exact path="/">
               <SongForm
                 handleSearch={handleSearch}
                 handleSaveSong={handleSaveSong}
               />
-              <h2>Tabla de Canciones</h2>
+              <SongTable
+                mySongs={mySongs}
+                handleDeleteSong={handleDeleteSong}
+              />
               {/* En caso de que la consulta de Search tenga algo y el loading ya no este cargando renderiza los detalles de las canciones */}
               {search && !loading && (
                 <SongDetails search={search} lyric={lyric} bio={bio} />
